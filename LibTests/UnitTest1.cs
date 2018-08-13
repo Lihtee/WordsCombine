@@ -40,5 +40,22 @@ namespace LibTests
         }
     }
 
-    
+    [TestClass]
+    public class CombineTests
+    {
+        private Operations _operations;
+
+        public CombineTests()
+        {
+            this._operations = new Operations();
+        }
+        [TestMethod]
+        public void CombineWorks()
+        {
+            string sA = "шлакоблок";
+            string sB = "окунь";
+        
+            var res = string.Join(Environment.NewLine, _operations.Combine(sA, sB));
+        }
+    }
 }

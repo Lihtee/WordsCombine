@@ -11,7 +11,7 @@ namespace WordsCombine
         public List<int> EndPoss;
         public int Length()
         {
-            return EndPoss[0] - StartPoss[0];
+            return EndPoss[0] - StartPoss[0] + 1;
         }
 
         public string GetBefore(int index)

@@ -8,11 +8,49 @@ namespace WordsCombine
     {
         public List<string> Combine(string wordA, string wordB)
         {
-            throw new NotImplementedException();
+            var commonStrings = FindCommonSubstrings(wordA, wordB).OrderByDescending(x => x.Length()).ToList();
+            var res = new List<string>();
+            foreach (var commStr in commonStrings)
+            {
+                int len = commStr.Words.Count();
+
+                for (int leftind = 0; leftind < len; leftind++)
+                {
+                    for (int rightind = 0; rightind < len; rightind++)
+                    {
+                        if (leftind != rightind)
+                        {
+                            string comb1 =
+                                $"{commStr.GetBefore(leftind)}" +
+                                $"{commStr.GetCommon(leftind)}" +
+                                $"{commStr.GetAfter(rightind)}";
+                            string comb2 =
+                                $"{commStr.GetBefore(leftind)}" +
+                                $"{commStr.GetCommon(rightind)}" +
+                                $"{commStr.GetAfter(rightind)}";
+                            res.Add(comb1);
+
+                            if (comb1 != comb2)
+                            {
+                                res.Add(comb2);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return res;
         }
 
         public List<CommonString> FindCommonSubstrings(string wordA, string wordB)
         {
+            if (wordA.Length > wordB.Length)
+            {
+                var temp = wordB;
+                wordB = wordA;
+                wordA = temp;
+            }
+
             int lenA = wordA.Length;
             int lenB = wordB.Length;
             var a = new Word { sWord = wordA };
